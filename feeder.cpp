@@ -20,7 +20,7 @@
 #include <memory>
 
 struct Feeder {
-    virtual void feed(const char *buf, const int len) = 0;
+    virtual ssize_t feed(const char *buf, const int len) = 0;
     virtual const char *name() const = 0;
     virtual ~Feeder() { }
 };
@@ -57,8 +57,8 @@ struct Tap : public Feeder {
         close(sock);
     }
 
-    void feed(const char *buf, int len) override {
-        (void)write(fd, buf, len);
+    ssize_t feed(const char *buf, int len) override {
+        return write(fd, buf, len);
     }
 
     const char *name() const override {

@@ -58,7 +58,7 @@ struct Tap : public Feeder {
     }
 
     void feed(const char *buf, int len) override {
-        write(fd, buf, len);
+        (void)write(fd, buf, len);
     }
 
     const char *name() const override {
